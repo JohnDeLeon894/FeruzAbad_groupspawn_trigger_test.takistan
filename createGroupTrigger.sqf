@@ -23,7 +23,7 @@ switch (_side) do {
 };
 private _conditionText = format['count units %1 == 0 && %2 countside allUnits < 64', _groupName, _side];
 // [_group, _count, _unitsArray, _position, side] call spawnGroups;
-private _activationText = format ['[%1, %2, %3, %4, %5] execVM "spawngroup.sqf"; hint "trigger acitivated for %1"; trigger_%1 = true;', _groupName, _groupSize, _units, _spawnPoint];
+private _activationText = format ['[%1, %2, %3, %4, %5] execVM "spawngroup.sqf"; hint "trigger acitivated for %1"; trigger_%1 = true;', _groupName, _groupSize, _units, _spawnPoint, _side];
 // private _activationText = '[] execVM "createGroupPerMarker.sqf"';
 private _deactivationText = format['trigger_%1 = false;', _group];
 player globalChat _group;
