@@ -47,10 +47,15 @@ if(_count < 1 ) exitWith {hint "exiting spawn loop"};
 // spawns unit and adds to group
 // player globalChat format['group name passed  to spawn script %1 ',_group];
 for [{private _i=0}, {_i<_count}, {_i=_i+1}] do {
+	if (_side countside allUnits > 64) exitWith {
+		player globalChat format['Troop limit reached at troop count %1', _side countside allUnits ];
+	};
 	_soldierRole =  _unitsArray call BIS_fnc_selectRandom; 
 	_soldierRole createUnit [_position, _group];
 };
 player globalChat format['Created group %1!', _group];
+player createDiarySubject['createdGroup',  'Created Groups'];
+player createDiaryRecord ['createdGroup',['group created', format['The following group was created: %1', _group]]];
 
 while {(count (waypoints _group)) > 0} do {
 	deleteWaypoint ((waypoints _group) select 0);

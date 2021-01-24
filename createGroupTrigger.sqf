@@ -21,14 +21,13 @@ switch (_side) do {
 	};
 	default hint format['no side chosen. Side: %1', _side];
 };
-
-
-private _conditionText = format['{ !alive _x} forEach units %1;', _groupName];
+private _conditionText = format['count units %1 == 0 && %2 countside allUnits < 64', _groupName, _side];
 // [_group, _count, _unitsArray, _position, side] call spawnGroups;
-private _activationText = format ['[%1, %2, %3, %4, %5] execVM "spawngroup.sqf"; hint "trigger acitivated!"; trigger_%6 = true;', _groupName, _groupSize, _units, _spawnPoint, _side, _group ];
+private _activationText = format ['[%1, %2, %3, %4, %5] execVM "spawngroup.sqf"; hint "trigger acitivated for %1"; trigger_%1 = true;', _groupName, _groupSize, _units, _spawnPoint];
+// private _activationText = '[] execVM "createGroupPerMarker.sqf"';
 private _deactivationText = format['trigger_%1 = false;', _group];
 player globalChat _group;
-private _groupTrigger = createTrigger ['EmptyDetector', [0,0,0]];
+_groupTrigger = createTrigger ['EmptyDetector', [0,0,0]];
 _groupTrigger setTriggerStatements[_conditionText, _activationText,_deactivationText];
 _groupTrigger setTriggerActivation ['NONE', 'NOT PRESENT', true];
 _groupTrigger setTriggerInterval 5;
